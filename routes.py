@@ -30,7 +30,7 @@ def check_subscription():
 def index():
     category_id = request.args.get('category', type=int)
     page = request.args.get('page', 1, type=int)   # default = page 1
-    per_page =29                                   # show 9 prompts at once
+    per_page =30                                   # show 9 prompts at once
 
     categories = Category.query.all()
 
@@ -59,7 +59,8 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        
+   
+     
         user = User.query.filter_by(username=username).first()
         
         if user and check_password_hash(user.password_hash, password):
