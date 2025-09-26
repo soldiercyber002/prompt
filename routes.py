@@ -29,9 +29,18 @@ def check_subscription():
 @app.route('/')
 def index():
     category_id = request.args.get('category', type=int)
+    # Sponsorships
+    sponsorships = Sponsorship.query.filter(
+        Sponsorship.is_active == True,
+        db.or_(Sponsorship.expires_at.is_(None), Sponsorship.expires_at > datetime.utcnow())
+    ).all()
     page = request.args.get('page', 1, type=int)   # default = page 1
+<<<<<<< HEAD
     per_page =30                                   # show 9 prompts at once
 
+=======
+    per_page =28-len(sponsorships)                                
+>>>>>>> 8e0b38bba39ea8be2358c7d3dd615a5514886b03
     categories = Category.query.all()
 
     query = Prompt.query
@@ -39,12 +48,6 @@ def index():
         query = query.filter_by(category_id=category_id)
 
     prompts = query.order_by(Prompt.id.desc()).paginate(page=page, per_page=per_page)
-
-    # Sponsorships
-    sponsorships = Sponsorship.query.filter(
-        Sponsorship.is_active == True,
-        db.or_(Sponsorship.expires_at.is_(None), Sponsorship.expires_at > datetime.utcnow())
-    ).all()
 
     return render_template(
         'index.html',
