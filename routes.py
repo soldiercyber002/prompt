@@ -355,6 +355,13 @@ def profile():
         instagram_id = request.form.get('instagram_id', '').strip()
         current_user.instagram_id = instagram_id if instagram_id else None
         
+        username = request.form.get('username', '').strip()
+        if current_user.username!=username:
+            if User.query.filter_by(username=username).first():
+                flash('Username already exists!', 'error')
+            else:
+                current_user.username= username 
+
         db.session.commit()
         flash('Profile updated successfully!', 'success')
         return redirect(url_for('profile'))
