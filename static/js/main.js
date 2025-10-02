@@ -579,28 +579,34 @@ async function copyPromptText(promptId) {
 }
 
 // Share prompt text function
-function sharePromptText(promptId) {
-    // Ye assume kar rahe ki prompt ka URL ye hai
-    const promptUrl = `${window.location.origin}/prompt/${promptId}`;
+function sharePromptLink(promptId) {
+    // Shareable link
+    const shareUrl = `${window.location.origin}/?prompt=${promptId}`;
 
-    // Modern browsers me Web Share API use kar sakte ho
     if (navigator.share) {
         navigator.share({
             title: 'Check out this prompt!',
-            text: 'I found this prompt useful:',
-            url: promptUrl
+            text: 'Open this prompt on Prompts Library:',
+            url: shareUrl
         }).then(() => {
-            console.log('Prompt shared successfully');
-        }).catch((error) => {
-            console.error('Error sharing', error);
-        });
+            console.log('Prompt link shared successfully');
+        }).catch((err) => console.error('Error sharing', err));
     } else {
-        // Agar Web Share API available nahi hai, fallback ke liye URL copy karwa do
-        navigator.clipboard.writeText(promptUrl).then(() => {
+        // Fallback: copy link
+        navigator.clipboard.writeText(shareUrl).then(() => {
             alert('Prompt link copied to clipboard!');
         });
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const promptId = urlParams.get('prompt');
+    if (promptId) {
+        // Agar prompt param hai, modal open karo
+        viewPrompt(promptId);
+    }
+});
 
 // View sponsorship details
 function viewSponsorship(sponsorshipId) {
