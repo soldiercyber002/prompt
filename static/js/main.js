@@ -579,8 +579,7 @@ async function copyPromptText(promptId) {
 }
 
 // Share prompt text function
-function sharePromptLink(promptId) {
-    // Shareable link
+function sharePromptText(promptId) {
     const shareUrl = `${window.location.origin}/?prompt=${promptId}`;
 
     if (navigator.share) {
@@ -588,14 +587,14 @@ function sharePromptLink(promptId) {
             title: 'Check out this prompt!',
             text: 'Open this prompt on Prompts Library:',
             url: shareUrl
-        }).then(() => {
-            console.log('Prompt link shared successfully');
-        }).catch((err) => console.error('Error sharing', err));
+        }).then(() => console.log('Prompt shared successfully'))
+          .catch(err => {
+              console.error('Error sharing:', err);
+              alert('Unable to share prompt.');
+          });
     } else {
-        // Fallback: copy link
-        navigator.clipboard.writeText(shareUrl).then(() => {
-            alert('Prompt link copied to clipboard!');
-        });
+        navigator.clipboard.writeText(shareUrl)
+            .then(() => alert('Prompt link copied to clipboard!'));
     }
 }
 
