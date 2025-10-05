@@ -172,8 +172,8 @@ function showPromptModal(prompt) {
         </div>
     `;
     
-    // Show prompt text only for subscribed users
-    if (prompt.can_view_details) {
+    // Show prompt text only for subscribed users (prompt.can_view_details)
+    if (isAuthenticated) {
         contentHTML += `
             <div class="detail-section">
                 <div class="d-flex justify-content-between align-items-center mb-2">
