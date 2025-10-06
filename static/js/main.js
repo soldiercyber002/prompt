@@ -173,7 +173,7 @@ function showPromptModal(prompt) {
     `;
     
     // Show prompt text only for subscribed users (prompt.can_view_details)
-    if (curren_user.is_otp_verified) {
+    if (prompt.can_view_details && isAuthenticated && current_user.is_otp_verified && isSubscribed) {
         contentHTML += `
             <div class="detail-section">
                 <div class="d-flex justify-content-between align-items-center mb-2">
