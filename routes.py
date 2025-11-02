@@ -12,8 +12,8 @@ from models import User, Category, Prompt, SavedPrompt, Sponsorship
 import uuid
 
 # SMTP config (use env vars in production)
-SMTP_SENDER_EMAIL = os.environ.get('SMTP_SENDER_EMAIL', 'hardikv682@gmail.com')
-SMTP_SENDER_PASSWORD = os.environ.get('SMTP_SENDER_PASSWORD', 'tdowmwwzregmftcb')
+SMTP_SENDER_EMAIL = os.environ.get('SMTP_SENDER_EMAIL', 'promptslibrary.in@gmail.com')
+SMTP_SENDER_PASSWORD = os.environ.get('SMTP_SENDER_PASSWORD', 'yyvjblqqvwwpbfod')
 
 razorpay_client = razorpay.Client(auth=("rzp_live_RMas2O1baWS96w", "pWyiHH9vjXOJmHN8EgPiwPAy"))
 app.permanent_session_lifetime = timedelta(days=7) 
